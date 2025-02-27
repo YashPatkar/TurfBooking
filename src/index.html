@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Turf Booking</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="output.css" />
+    <style>
+      @keyframes scroll {
+        from {
+          transform: translateX(0%);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="bg-gray-100 p-6 flex justify-between items-center shadow-md">
+      <div class="flex items-center gap-2">
+        <img
+          class="w-10 h-10"
+          src="https://imgs.search.brave.com/NPF_1fmjfZZhqESkwmRSc33lpAKGHzDS4cl50HdaHXk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcm8y/LWJhci1zMy1jZG4t/Y2YubXlwb3J0Zm9s/aW8uY29tLzc5OTA4/ODgwLTdiMjItNDA0/ZC1iNzFmLTg5Yzlk/YTRkYzg4Mi84N2Mx/ZjBhMy1iZTlhLTRh/NmEtODQ3Ni02YmMy/MDIzNmNjZDRfcndf/MTkyMC5wbmc_aD01/ZTNlYThiZjI1YzRh/ZDAwNGIxY2QzNDQ3/MDBhZTQxYQ"
+          alt="Logo"
+        />
+        <h3 class="text-md text-gray-700 font-medium">TurfBook</h3>
+      </div>
+      <div class="text-lg font-medium text-gray-700 flex gap-10 items-center">
+        <a href="#" class="hover:text-black hover:-translate-y-1 transition"
+          >Home</a
+        >
+        <a href="#" class="hover:text-black hover:-translate-y-1 transition"
+          >About</a
+        >
+        <a href="#" class="hover:text-black hover:-translate-y-1 transition"
+          >Contact Us</a
+        >
+      </div>
+      <div class="flex gap-3 items-center">
+        <button
+          class="border-2 p-3 rounded bg-blue-500 text-white hover:bg-blue-800 px-5"
+        >
+          Login
+        </button>
+        <button
+          class="border-2 p-3 rounded bg-blue-500 text-white hover:bg-blue-800 px-5"
+        >
+          Signup
+        </button>
+      </div>
+    </nav>
+    <main class="p-6 bg-gradient-to-br from-green-100 via-green-300 to-green-100">
+      <div class="text-center p-4 py-5 pt-10 flex flex-col gap-6">
+        <span
+          class="border-1 font-light border-green-600 p-1 bg-green-100 rounded-[50px] px-4 mx-auto text-green-900"
+        >
+          <i class="fa-solid fa-heart"></i> Book your turf now
+        </span>
+        <div class="flex flex-col gap-2">
+          <h3 class="text-6xl font-bold text-gray-600">
+            Your Game. Your Time.
+          </h3>
+          <h2 class="text-6xl font-bold text-black">Book in Minutes.</h2>
+        </div>
+        <p class="max-w-[60%] mx-auto text-gray-800">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        </p>
+        <div class="flex gap-4 max-w-[50%] mx-auto">
+          <button
+            class="flex p-2 bg-green-500 text-white rounded px-5 hover:bg-green-800 items-center gap-2 group hover:shadow-lg"
+          >
+            Start Booking
+            <i
+              class="fa-solid fa-arrow-right group-hover:translate-x-2 transition"
+            ></i>
+          </button>
+          <button
+            class="border-2 border-gray-600 hover:border-black text-black rounded px-5 transition"
+          >
+            Explore Features
+          </button>
+        </div>
+        <div>
+          <p class="py-5 text-md font-medium">
+            <i> You can book Turf for This games </i>👇
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <h4 class="text-lg font-semibold uppercase">Cricket</h4>
+              <p class="text-gray-600 pt-3">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi,
+                ratione tenetur. Vitae fugit molestiae, vero facilis similique
+                beatae a porro. adipisicing elit. Nisi, ratione tenetur. Vitae
+                fugit molestiae, vero facilis similique beatae a porro.
+              </p>
+              <img
+                class="h-45 w-full object-cover rounded-md mt-3"
+                src="https://imgs.search.brave.com/9IZPD1MqrL6DqIEe8pYS10DryBY4Z9-cM-0FQtosNXI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YWx0aXVzc3BvcnRz/LmNvbS9nYWxsZXJ5/L21zdnYlMjBjcmlj/LmpwZw"
+                alt="sport"
+              />
+            </div>
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <h4 class="text-lg font-semibold uppercase">Football</h4>
+              <p class="text-gray-600 pt-3">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi,
+                ratione tenetur. Vitae fugit molestiae, vero facilis similique
+                beatae a porro. adipisicing elit. Nisi, ratione tenetur. Vitae
+                fugit molestiae, vero facilis similique beatae a porro.
+              </p>
+              <img
+                class="h-45 w-full object-cover rounded-md mt-3"
+                src="https://imgs.search.brave.com/bsCpDq2Tg6IqCL0RF1wtFsTgQiWlDlWXcv9usZySEeg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9maWVs/ZHR1cmYuY29tL2lt/YWdlLzEvMzIwLzE2/MC91cGxvYWRzL3Nw/b3J0cy9saW5rYm94/LWZvb3RiYWxsLWVu/LTE2NTI3MzU5MDIu/anBn"
+                alt="sport"
+              />
+            </div>
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <h4 class="text-lg font-semibold uppercase">Hockey</h4>
+              <p class="text-gray-600 pt-3">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi,
+                ratione tenetur. Vitae fugit molestiae, vero facilis similique
+                beatae a porro. adipisicing elit. Nisi, ratione tenetur. Vitae
+                fugit molestiae, vero facilis similique beatae a porro.
+              </p>
+              <img
+                class="h-45 w-full object-cover rounded-md mt-3"
+                src="https://imgs.search.brave.com/LGzwfZyKVtSRAeb2Jfe9nlmPypvQv-2tRVPrFmYEmLk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQ0/MzUxNTk4L3Bob3Rv/L3BlbmFsdHkuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPXVi/Q2FvV0tOU29SRWdn/emRLcW1hNUJmaHVD/Q1c3U194cG9iU2tw/TjBwQ009"
+                alt="sport"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Features Section -->
+    </main>
+    <section class="text-center py-16 px-6">
+      <h2 class="text-green-600 text-lg font-semibold">Features</h2>
+      <h1 class="text-3xl md:text-4xl font-bold mt-2">
+        More than a Platform—Your Complete eCommerce Solution
+      </h1>
+      <p class="text-gray-600 mt-3">
+        Everything you need to design, launch, and scale your online
+        store—effortlessly.
+      </p>
+
+      <div
+        class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 max-w-5xl mx-auto"
+      >
+        <div class="bg-white p-6 flex items-start">
+          <i class="fa-solid fa-palette text-4xl text-green-500 mr-4"></i>
+          <div>
+            <h3 class="font-bold text-lg">
+              Create Beautiful Stores with Ease.
+            </h3>
+            <p class="text-gray-600">
+              Design your perfect store without writing a single line of code.
+              Just drag, drop, and launch.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 flex items-start">
+          <i class="fa-solid fa-shop text-4xl text-green-500 mr-4"></i>
+          <div>
+            <h3 class="font-bold text-lg">
+              Endless Possibilities at Your Fingertips.
+            </h3>
+            <p class="text-gray-600">
+              Pre-made beautiful eCommerce themes and apps that integrate
+              directly with Dropify.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 flex items-start">
+          <i class="fa-solid fa-laptop text-4xl text-green-500 mr-4"></i>
+          <div>
+            <h3 class="font-bold text-lg">Your Store, Everywhere.</h3>
+            <p class="text-gray-600">
+              Deliver a flawless shopping experience on any device—desktop,
+              tablet, or mobile.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 flex items-start">
+          <i class="fa-solid fa-globe text-4xl text-green-500 mr-4"></i>
+          <div>
+            <h3 class="font-bold text-lg">Go Global Instantly.</h3>
+            <p class="text-gray-600">
+              Reach customers worldwide with built-in language and currency
+              support.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 flex items-start">
+          <i class="fa-solid fa-boxes-stacked text-4xl text-green-500 mr-4"></i>
+          <div>
+            <h3 class="font-bold text-lg">Stay in Control, Effortlessly.</h3>
+            <p class="text-gray-600">
+              Manage products, track orders, and oversee your store’s
+              operations—all in one dashboard.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 flex items-start">
+          <i class="fa-solid fa-chart-line text-4xl text-green-500 mr-4"></i>
+          <div>
+            <h3 class="font-bold text-lg">Your Growth, Simplified.</h3>
+            <p class="text-gray-600">
+              Access insights, automation, and expert resources to scale your
+              business sustainably.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- User Feedback Section -->
+    <section class="p-10 pt-12 pb-15 bg-gradient-to-br from-green-100 via-green-300 to-green-100">
+      <div class="text-center py-10 max-w-5xl mx-auto">
+        <h2 class="text-green-600 text-lg font-semibold">User Feedback</h2>
+        <h1 class="text-3xl md:text-4xl font-bold mt-2">
+          A platform that is for the sports enthusiast.
+        </h1>
+        <p class="text-gray-600 mt-3">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos ad laborum iusto similique minus facilis doloremque earum porro necessitatibus enim placeat dolores atque exercitationem deserunt id, hic nihil ipsam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos ad laborum iusto similique minus facilis doloremque earum porro necessitatibus enim placeat dolores atque exercitationem deserunt id, hic nihil ipsam.
+        </p>
+      </div>
+      <div class="feedback-container overflow-hidden w-full">
+        <div
+          class="feedback-scroll flex gap-6 w-max animate-[scroll_15s_linear_infinite]"
+        >
+          <!-- Duplicate Items for Infinite Scroll Effect -->
+          <div class="flex gap-6">
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <img
+                src="https://randomuser.me/api/portraits/men/1.jpg"
+                class="w-12 h-12 rounded-full"
+                alt="User"
+              />
+              <h4 class="text-lg font-semibold">John Doe</h4>
+              <p class="text-yellow-500">
+                <i class="fa-solid fa-star"></i> 4.5
+              </p>
+              <p class="text-gray-600">
+                Great experience! The booking process was seamless.
+              </p>
+            </div>
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <img
+                src="https://randomuser.me/api/portraits/women/2.jpg"
+                class="w-12 h-12 rounded-full"
+                alt="User"
+              />
+              <h4 class="text-lg font-semibold">Jane Smith</h4>
+              <p class="text-yellow-500">
+                <i class="fa-solid fa-star"></i> 5.0
+              </p>
+              <p class="text-gray-600">
+                Amazing service! Will book again for sure.
+              </p>
+            </div>
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <img
+                src="https://randomuser.me/api/portraits/men/3.jpg"
+                class="w-12 h-12 rounded-full"
+                alt="User"
+              />
+              <h4 class="text-lg font-semibold">Michael Lee</h4>
+              <p class="text-yellow-500">
+                <i class="fa-solid fa-star"></i> 4.8
+              </p>
+              <p class="text-gray-600">Easy to use and very convenient.</p>
+            </div>
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <img
+                src="https://randomuser.me/api/portraits/women/4.jpg"
+                class="w-12 h-12 rounded-full"
+                alt="User"
+              />
+              <h4 class="text-lg font-semibold">Emily Davis</h4>
+              <p class="text-yellow-500">
+                <i class="fa-solid fa-star"></i> 4.7
+              </p>
+              <p class="text-gray-600">Smooth experience, highly recommend!</p>
+            </div>
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <img
+                src="https://randomuser.me/api/portraits/men/5.jpg"
+                class="w-12 h-12 rounded-full"
+                alt="User"
+              />
+              <h4 class="text-lg font-semibold">Chris Brown</h4>
+              <p class="text-yellow-500">
+                <i class="fa-solid fa-star"></i> 4.6
+              </p>
+              <p class="text-gray-600">
+                User-friendly interface and great support.
+              </p>
+            </div>
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <img
+                src="https://randomuser.me/api/portraits/women/6.jpg"
+                class="w-12 h-12 rounded-full"
+                alt="User"
+              />
+              <h4 class="text-lg font-semibold">Sophia Wilson</h4>
+              <p class="text-yellow-500">
+                <i class="fa-solid fa-star"></i> 5.0
+              </p>
+              <p class="text-gray-600">Loved the service! Highly recommend.</p>
+            </div>
+          </div>
+
+          <!-- Duplicate Items for Infinite Loop -->
+          <div class="flex gap-6">
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <img
+                src="https://randomuser.me/api/portraits/men/1.jpg"
+                class="w-12 h-12 rounded-full"
+                alt="User"
+              />
+              <h4 class="text-lg font-semibold">John Doe</h4>
+              <p class="text-yellow-500">
+                <i class="fa-solid fa-star"></i> 4.5
+              </p>
+              <p class="text-gray-600">
+                Great experience! The booking process was seamless.
+              </p>
+            </div>
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <img
+                src="https://randomuser.me/api/portraits/women/2.jpg"
+                class="w-12 h-12 rounded-full"
+                alt="User"
+              />
+              <h4 class="text-lg font-semibold">Jane Smith</h4>
+              <p class="text-yellow-500">
+                <i class="fa-solid fa-star"></i> 5.0
+              </p>
+              <p class="text-gray-600">
+                Amazing service! Will book again for sure.
+              </p>
+            </div>
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <img
+                src="https://randomuser.me/api/portraits/men/3.jpg"
+                class="w-12 h-12 rounded-full"
+                alt="User"
+              />
+              <h4 class="text-lg font-semibold">Michael Lee</h4>
+              <p class="text-yellow-500">
+                <i class="fa-solid fa-star"></i> 4.8
+              </p>
+              <p class="text-gray-600">Easy to use and very convenient.</p>
+            </div>
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <img
+                src="https://randomuser.me/api/portraits/women/4.jpg"
+                class="w-12 h-12 rounded-full"
+                alt="User"
+              />
+              <h4 class="text-lg font-semibold">Emily Davis</h4>
+              <p class="text-yellow-500">
+                <i class="fa-solid fa-star"></i> 4.7
+              </p>
+              <p class="text-gray-600">Smooth experience, highly recommend!</p>
+            </div>
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <img
+                src="https://randomuser.me/api/portraits/men/5.jpg"
+                class="w-12 h-12 rounded-full"
+                alt="User"
+              />
+              <h4 class="text-lg font-semibold">Chris Brown</h4>
+              <p class="text-yellow-500">
+                <i class="fa-solid fa-star"></i> 4.6
+              </p>
+              <p class="text-gray-600">
+                User-friendly interface and great support.
+              </p>
+            </div>
+            <div
+              class="p-5 shadow-lg rounded-lg bg-gray-50 flex flex-col items-center"
+            >
+              <img
+                src="https://randomuser.me/api/portraits/women/6.jpg"
+                class="w-12 h-12 rounded-full"
+                alt="User"
+              />
+              <h4 class="text-lg font-semibold">Sophia Wilson</h4>
+              <p class="text-yellow-500">
+                <i class="fa-solid fa-star"></i> 5.0
+              </p>
+              <p class="text-gray-600">Loved the service! Highly recommend.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class=" text-black py-12">
+        <div class="container mx-auto px-6">
+          <!-- Heading -->
+          <div class="text-center py-10 max-w-5xl mx-auto">
+            <h2 class="text-green-600 text-lg font-semibold">Latest Blogs</h2>
+            <h1 class="text-3xl md:text-4xl font-bold mt-2">
+              Our best selling turfs of this month.
+            </h1>
+            <p class="text-gray-600 mt-3">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos ad laborum iusto similique minus facilis doloremque earum porro necessitatibus enim placeat dolores atque exercitationem deserunt id, hic nihil ipsam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos ad laborum iusto similique minus facilis doloremque earum porro necessitatibus enim placeat dolores atque exercitationem deserunt id, hic nihil ipsam.
+            </p>
+          </div>
+      
+          <!-- Blog Cards -->
+          <div class="grid md:grid-cols-3 gap-6">
+            <!-- Blog 1 -->
+            <div class="rounded-lg overflow-hidden shadow-lg">
+              <div class="relative">
+                <img src="https://imgs.search.brave.com/TDFbtUp2RfUrOhBY9cuNj4AUeWyeFqynZHeGVZdTQY8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNC8x/MC8xNC8yMC8yNC9i/YWxsLTQ4ODcxN182/NDAuanBn" class="w-full h-48 object-cover">
+                <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-sm flex justify-between p-3">
+                  <span>📍 Ruparel Turfy</span>
+                  <span>📅 19 Mar, 2025</span>
+                </div>
+              </div>
+              <div class="p-4 bg-green-800">
+                <h3 class="text-lg font-semibold text-white">Free advertising for your online business</h3>
+                <p class="text-gray-400 mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed felis id tortor.</p>
+              </div>
+            </div>
+      
+            <!-- Blog 2 -->
+            <div class="rounded-lg overflow-hidden shadow-lg">
+              <div class="relative">
+                <img src="https://imgs.search.brave.com/ej5m5Q0KHrTygsMFnBLBq71avr0Ub_GH3VpQeBRIjiw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdXJl/a2hhZXhwb3J0cy5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjUvMDEvVGhlLUJl/bmVmaXRzLW9mLUNo/b29zaW5nLUZJRkEt/Q2VydGlmaWVkLUFy/dGlmaWNpYWwtRm9v/dGJhbGwtVHVyZi1m/b3ItU3BvcnRzLVZl/bnVlcy5qcGc" class="w-full h-48 object-cover">
+                <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-sm flex justify-between p-3">
+                  <span>📍 Ruparel Turf</span>
+                  <span>📅 25 Feb, 2025</span>
+                </div>
+              </div>
+              <div class="p-4 bg-green-800">
+                <h3 class="text-lg font-semibold text-white">9 simple ways to improve your design skills</h3>
+                <p class="text-gray-400 mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed felis id tortor.</p>
+              </div>
+            </div>
+      
+            <!-- Blog 3 -->
+            <div class="rounded-lg overflow-hidden shadow-lg">
+              <div class="relative">
+                <img src="https://imgs.search.brave.com/g7dBKp1BCS-fUKHA_yR11rC7_y66uB7QE-Cfy5sBKjQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9yZXMu/Y2xvdWRpbmFyeS5j/b20vcHVybmVzaC9p/bWFnZS91cGxvYWQv/d18xMDAwLGZfYXV0/byxxX2F1dG86ZWNv/LGNfbGltaXQvZm9v/dGJhbGwtbGluay5q/cGc" class="w-full h-48 object-cover">
+                <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-sm flex justify-between p-3">
+                  <span>📍 Ruparel Turf</span>
+                  <span>📅 05 Jan, 2025</span>
+                </div>
+              </div>
+              <div class="p-4 bg-green-800">
+                <h3 class="text-lg font-semibold text-white">Tips to quickly improve your coding speed.</h3>
+                <p class="text-gray-400 mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed felis id tortor.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <section class="bg-gradient-to-br from-green-100 via-green-300 to-green-100 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="text-center py-10 max-w-5xl mx-auto">
+                <h2 class="text-green-600 text-lg font-semibold">Contact US</h2>
+                <h1 class="text-3xl md:text-4xl font-bold mt-2 text-black">
+                  Contact us if you have some doubts or queries.
+                </h1>
+                <p class="text-gray-600 mt-3">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos ad laborum iusto similique minus facilis doloremque earum porro necessitatibus enim placeat dolores atque exercitationem deserunt id, hic nihil ipsam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos ad laborum iusto similique minus facilis doloremque earum porro necessitatibus enim placeat dolores atque exercitationem deserunt id, hic nihil ipsam.
+                </p>
+              </div>
+      
+          <!-- Contact Form -->
+          <div class="bg-white p-8 rounded-lg max-w-3xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+              <input type="text" placeholder="Enter your name" class="bg-gray-600 text-white p-3 rounded-md w-full">
+              <input type="text" placeholder="Enter your Address" class="bg-gray-600 text-white p-3 rounded-md w-full">
+            </div>
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+              <input type="email" placeholder="Enter your email" class="bg-gray-600 text-white p-3 rounded-md w-full">
+              <input type="text" placeholder="Enter your Phone Number" class="bg-gray-600 text-white p-3 rounded-md w-full">
+            </div>
+            <textarea placeholder="Enter your queries" class="bg-gray-600 text-white p-3 rounded-md w-full h-32 mb-4"></textarea>
+      
+            <p class="text-gray-400 text-sm text-center mb-4">
+              By clicking contact us button, your query will be got to us.
+            </p>
+      
+            <div class="text-center">
+              <button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-md">
+                Contact Us
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer class="bg-gray-100 py-8">
+        <div class="container mx-auto px-6">
+          <div class="grid md:grid-cols-3 gap-8">
+            
+            <!-- Left Section -->
+            <div>
+              <h2 class="text-lg font-semibold text-gray-800">Let's keep in touch!</h2>
+              <p class="text-gray-600 mt-1">Find us on any of these platforms, we respond in 1-2 business days.</p>
+              
+              <!-- Social Icons -->
+              <div class="flex space-x-3 mt-4">
+                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-200">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/twitter.svg" class="w-5 h-5" alt="Twitter">
+                </a>
+                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-200">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/facebook.svg" class="w-5 h-5" alt="Facebook">
+                </a>
+                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-200">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/dribbble.svg" class="w-5 h-5" alt="Dribbble">
+                </a>
+                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-200">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/github.svg" class="w-5 h-5" alt="GitHub">
+                </a>
+              </div>
+            </div>
+      
+            <!-- Middle Section -->
+            <div>
+              <h2 class="text-lg font-semibold text-gray-800">USEFUL LINKS</h2>
+              <ul class="mt-2 space-y-1 text-gray-600">
+                <li><a href="#" class="hover:text-gray-800">Blog</a></li>
+                <li><a href="#" class="hover:text-gray-800">Github</a></li>
+              </ul>
+            </div>
+      
+            <!-- Right Section -->
+            <div>
+              <h2 class="text-lg font-semibold text-gray-800">OTHER RESOURCES</h2>
+              <ul class="mt-2 space-y-1 text-gray-600">
+                <li><a href="#" class="hover:text-gray-800">MIT License</a></li>
+                <li><a href="#" class="hover:text-gray-800">Terms & Conditions</a></li>
+                <li><a href="#" class="hover:text-gray-800">Privacy Policy</a></li>
+                <li><a href="#" class="hover:text-gray-800">Contact Us</a></li>
+              </ul>
+            </div>
+      
+          </div>
+      
+          <!-- Copyright -->
+          <div class="text-center text-gray-600 text-sm mt-8">
+            Copyright © 2025 TurfBook Website by Yash Patkar.
+          </div>
+        </div>
+      </footer>      
+      
+  </body>
+</html>
