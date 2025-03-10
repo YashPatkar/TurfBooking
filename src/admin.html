@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="output.css" />
+
+    <script>
+        function checkPassword() {
+            let storedPassword = sessionStorage.getItem("admin-auth");
+            let content = document.getElementById("admin-content");
+            let loginBox = document.getElementById("login-box");
+
+            if (storedPassword) {
+                content.style.display = "block";
+                loginBox.style.display = "none";
+            } else {
+                content.style.display = "none";
+                loginBox.style.display = "block";
+            }
+        }
+
+        function verifyPassword() {
+            let passwordInput = document.getElementById("password-input").value;
+            if (passwordInput === "admin123") {
+                sessionStorage.setItem("admin-auth", "true");
+                checkPassword(); // Show content after successful login
+            } else {
+                alert("Incorrect Password!");
+                location.reload(); // Reload to reset input
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem("admin-auth");
+            alert("Logged out!");
+            location.reload(); // Reload page to hide content
+        }
+    </script>
+
+</head>
+<body onload="checkPassword()" class="bg-gray-100">
+
+    <!-- Password Entry Box -->
+    <div id="login-box" class="flex justify-center items-center h-screen">
+        <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+            <h2 class="text-xl font-bold mb-4">Enter Admin Password</h2>
+            <input type="password" id="password-input" placeholder="Enter Password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button onclick="verifyPassword()" class="w-full mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                Submit
+            </button>
+        </div>
+    </div>
+
+    <!-- Admin Panel Content (Hidden Initially) -->
+    <div id="admin-content" style="display: none;">
+        <nav class="bg-gray-100 p-6 flex justify-between items-center shadow-md">
+            <div class="flex items-center gap-2">
+                <img class="w-10 h-10" src="https://imgs.search.brave.com/NPF_1fmjfZZhqESkwmRSc33lpAKGHzDS4cl50HdaHXk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcm8y/LWJhci1zMy1jZG4t/Y2YubXlwb3J0Zm9s/aW8uY29tLzc5OTA4/ODgwLTdiMjItNDA0/ZC1iNzFmLTg5Yzlk/YTRkYzg4Mi84N2Mx/ZjBhMy1iZTlhLTRh/NmEtODQ3Ni02YmMy/MDIzNmNjZDRfcndf/MTkyMC5wbmc_aD01/ZTNlYThiZjI1YzRh/ZDAwNGIxY2QzNDQ3/MDBhZTQxYQ" alt="Logo" />
+                <h3 class="text-md text-gray-700 font-medium">TurfBook</h3>
+            </div>
+            <div class="flex gap-3 items-center">
+                <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg">Logout</button>
+                <a href="./main.html">
+                    <button class="border-2 p-3 rounded bg-blue-500 text-white hover:bg-blue-800 px-5">
+                        Back to main
+                    </button>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Admin Form -->
+        <main class="p-6 max-w-lg mx-auto">
+            <h2 class="text-2xl font-bold mb-4">Add New Turf</h2>
+            <form class="bg-white p-6 rounded-lg shadow-lg space-y-4">
+                <div>
+                    <label class="block text-gray-700">Turf Name</label>
+                    <input type="text" placeholder="Enter turf name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700">Image URL</label>
+                    <input type="text" placeholder="Enter image URL" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700">Address</label>
+                    <input type="text" placeholder="Enter address" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700">Game</label>
+                    <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>Football</option>
+                        <option>Cricket</option>
+                        <option>Badminton</option>
+                        <option>Basketball</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-700">Price (₹/hr)</label>
+                    <input type="number" placeholder="Enter price" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700">Timing</label>
+                    <input type="text" placeholder="E.g., 10 AM - 9 PM" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    Add Turf
+                </button>
+            </form>
+        </main>
+    </div>
+
+</body>
+</html>

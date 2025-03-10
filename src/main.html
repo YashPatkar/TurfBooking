@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="output.css" />
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-100 p-6 flex justify-between items-center shadow-md">
+        <div class="flex items-center gap-2">
+          <img
+            class="w-10 h-10"
+            src="https://imgs.search.brave.com/NPF_1fmjfZZhqESkwmRSc33lpAKGHzDS4cl50HdaHXk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcm8y/LWJhci1zMy1jZG4t/Y2YubXlwb3J0Zm9s/aW8uY29tLzc5OTA4/ODgwLTdiMjItNDA0/ZC1iNzFmLTg5Yzlk/YTRkYzg4Mi84N2Mx/ZjBhMy1iZTlhLTRh/NmEtODQ3Ni02YmMy/MDIzNmNjZDRfcndf/MTkyMC5wbmc_aD01/ZTNlYThiZjI1YzRh/ZDAwNGIxY2QzNDQ3/MDBhZTQxYQ"
+            alt="Logo"
+          />
+          <h3 class="text-md text-gray-700 font-medium">TurfBook</h3>
+        </div>
+        <div class="flex gap-3 items-center">
+          <a href="./feedback.html" class="hover:-translate-y-2 transition">     
+              Feedback
+          </a>
+          <a href="./index.html" class="hover:-translate-y-2 transition">     
+            Logout
+        </a>
+        </div>
+      </nav>
+
+      <main class="p-6">
+        <h2 class="text-2xl font-bold mb-6">Available Turfs</h2>
+
+        <!-- Search Bar -->
+        <div class="mb-6 place-content-center flex">
+            <input type="text" id="searchInput" placeholder="Search by game (e.g., Football, Cricket)" 
+                class="w-full md:w-1/2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Turf Cards Container -->
+        <div id="turfContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Turf Card 1 -->
+            <div class="turf-card bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition-shadow" data-game="football">
+                <img src="https://imgs.search.brave.com/Fcb-YBUnBVeeUmLPCa_0mE0pwIc7wEE-pQdc9gpe3_8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNTIw/OTk5NTczL3Bob3Rv/L2luZG9vci1zb2Nj/ZXItZm9vdGJhbGwt/ZmllbGQuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPVgyUGlu/R201MVlQY3FDQUZD/cURoN0d2SnhvRzJX/bkoxOWFhZGZSWWsy/ZEk9" alt="Turf Image" class="w-full h-48 object-cover rounded-md">
+                <h3 class="text-lg font-bold mt-3">Green Field Turf</h3>
+                <p class="text-gray-500 text-sm">📍 123 Turf Street, City</p>
+                <p class="text-blue-600 font-semibold mt-2">⚽ Football</p>
+                <p class="text-gray-700 mt-2">💰 Price: <span class="font-semibold">₹500/hour</span></p>
+                <p class="text-gray-700">⏰ Timings: <span class="font-semibold">10 AM - 9 PM</span></p>
+                <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg w-full">Book Turf</button>
+            </div>
+    
+            <!-- Turf Card 2 -->
+            <div class="turf-card bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition-shadow" data-game="cricket">
+                <img src="https://imgs.search.brave.com/xEM0vFRwChBdQn8LbRaZ2PcgNc0uaMxp7fUmO51EaJo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM0/MTA1NzAwMS9waG90/by9wbGF5aW5nLWZp/ZWxkLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1zMjh2LURt/eVZpU0pkaTFaSGFp/YmpvbWJVaUZ1UFdr/YlpnVmNxa2VaS25z/PQ" alt="Turf Image" class="w-full h-48 object-cover rounded-md">
+                <h3 class="text-lg font-bold mt-3">Sunset Arena</h3>
+                <p class="text-gray-500 text-sm">📍 456 Sports Avenue, City</p>
+                <p class="text-blue-600 font-semibold mt-2">🏏 Cricket</p>
+                <p class="text-gray-700 mt-2">💰 Price: <span class="font-semibold">₹500/hour</span></p>
+                <p class="text-gray-700">⏰ Timings: <span class="font-semibold">8 AM - 10 PM</span></p>
+                <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg w-full">Book Turf</button>
+            </div>
+    
+            <!-- Turf Card 3 -->
+            <div class="turf-card bg-white p-5 rounded-lg shadow-lg hover:shadow-xl transition-shadow" data-game="badminton">
+                <img src="https://imgs.search.brave.com/G9-c4PbrjTHZPCCLMWWZ59AHVadl4YROBrOHwo_5VJ8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzEwLzAxLzk2Lzcz/LzM2MF9GXzEwMDE5/NjczMjlfQzVFeTJG/anBtSmlpd05RTXlP/RlYyd2thWFVLeGFi/cGsuanBn" alt="Turf Image" class="w-full h-48 object-cover rounded-md">
+                <h3 class="text-lg font-bold mt-3">City Sports Hub</h3>
+                <p class="text-gray-500 text-sm">📍 789 Playground Road, City</p>
+                <p class="text-blue-600 font-semibold mt-2">🏸 Badminton</p>
+                <p class="text-gray-700 mt-2">💰 Price: <span class="font-semibold">₹500/hour</span></p>
+                <p class="text-gray-700">⏰ Timings: <span class="font-semibold">9 AM - 8 PM</span></p>
+                <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg w-full">Book Turf</button>
+            </div>
+    
+        </div>
+    </main>
+
+    <script>
+        // Search Functionality
+        document.getElementById("searchInput").addEventListener("keyup", function() {
+            let filter = this.value.toLowerCase().trim();
+            let turfCards = document.querySelectorAll(".turf-card");
+
+            turfCards.forEach(card => {
+                let game = card.getAttribute("data-game");
+                if (game.includes(filter)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
