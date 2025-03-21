@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <link rel="stylesheet" href="output.css" />
+    <link rel="stylesheet" href="./output.css" />
 
     <script>
         function checkPassword() {
@@ -71,43 +71,58 @@
         </nav>
 
         <!-- Admin Form -->
-        <main class="p-6 max-w-lg mx-auto">
-            <h2 class="text-2xl font-bold mb-4">Add New Turf</h2>
-            <form class="bg-white p-6 rounded-lg shadow-lg space-y-4">
+        <main class="p-6 max-w-lg mx-auto bg-white shadow-lg rounded-lg mt-10">
+            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Add New Turf</h2>
+        
+            <form action="/add-turf" method="POST" class="space-y-4">
                 <div>
-                    <label class="block text-gray-700">Turf Name</label>
-                    <input type="text" placeholder="Enter turf name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label class="block text-gray-700 font-medium">Turf Name</label>
+                    <input type="text" name="name" placeholder="Enter Turf Name"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
                 </div>
+        
                 <div>
-                    <label class="block text-gray-700">Image URL</label>
-                    <input type="text" placeholder="Enter image URL" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label class="block text-gray-700 font-medium">Image URL</label>
+                    <input type="text" name="image" placeholder="Enter Image URL"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
                 </div>
+        
                 <div>
-                    <label class="block text-gray-700">Address</label>
-                    <input type="text" placeholder="Enter address" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label class="block text-gray-700 font-medium">Address</label>
+                    <input type="text" name="address" placeholder="Enter Address"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
                 </div>
+        
                 <div>
-                    <label class="block text-gray-700">Game</label>
-                    <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label class="block text-gray-700 font-medium">Game</label>
+                    <select name="game"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
                         <option>Football</option>
                         <option>Cricket</option>
                         <option>Badminton</option>
                         <option>Basketball</option>
                     </select>
                 </div>
+        
                 <div>
-                    <label class="block text-gray-700">Price (₹/hr)</label>
-                    <input type="number" placeholder="Enter price" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label class="block text-gray-700 font-medium">Price (₹/hr)</label>
+                    <input type="number" name="price" placeholder="Enter Price"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
                 </div>
+        
                 <div>
-                    <label class="block text-gray-700">Timing</label>
-                    <input type="text" placeholder="E.g., 10 AM - 9 PM" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label class="block text-gray-700 font-medium">Timing</label>
+                    <input type="text" name="timing" placeholder="E.g., 10 AM - 9 PM"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
                 </div>
-                <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+        
+                <button type="submit"
+                    class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition shadow-md font-semibold">
                     Add Turf
                 </button>
             </form>
         </main>
+        
     </div>
 
 </body>
