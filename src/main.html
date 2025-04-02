@@ -1,34 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title><link rel="stylesheet" href="./output.css" />
+    <title>Main Page</title>
+    <link rel="stylesheet" href="/output.css">
+    <style>
+        /* Modal styles */
+        .booking-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        /* Turf card styles */
+        .turf-card {
+            transition: all 0.3s ease;
+        }
+        .turf-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
-
     <!-- Navbar -->
     <nav class="bg-gray-100 p-6 flex justify-between items-center shadow-md">
         <div class="flex items-center gap-2">
-          <img
-            class="w-10 h-10"
-            src="https://imgs.search.brave.com/NPF_1fmjfZZhqESkwmRSc33lpAKGHzDS4cl50HdaHXk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcm8y/LWJhci1zMy1jZG4t/Y2YubXlwb3J0Zm9s/aW8uY29tLzc5OTA4/ODgwLTdiMjItNDA0/ZC1iNzFmLTg5Yzlk/YTRkYzg4Mi84N2Mx/ZjBhMy1iZTlhLTRh/NmEtODQ3Ni02YmMy/MDIzNmNjZDRfcndf/MTkyMC5wbmc_aD01/ZTNlYThiZjI1YzRh/ZDAwNGIxY2QzNDQ3/MDBhZTQxYQ"
-            alt="Logo"
-          />
-          <h3 class="text-md text-gray-700 font-medium">TurfBook</h3>
+            <img class="w-10 h-10" src="YOUR_LOGO_URL" alt="Logo">
+            <h3 class="text-md text-gray-700 font-medium">TurfBook</h3>
         </div>
         <div class="flex gap-3 items-center">
-          <a href="./feedback.html" class="hover:-translate-y-2 transition">     
-              Feedback
-          </a>
-          <a href="./index.html" class="hover:-translate-y-2 transition">     
-            Logout
-        </a>
+            <a href="#" id="myBookingsLink" class="hover:-translate-y-1 transition">My Bookings</a>
+            <a href="./feedback.html" class="hover:-translate-y-1 transition">Feedback</a>
+            <a href="./index.html" class="hover:-translate-y-1 transition">Logout</a>
         </div>
-      </nav>
+    </nav>
 
-      <main class="p-6">
-
+    <main class="p-6">
         <!-- Search Bar -->
         <div class="mb-6 place-content-center flex">
             <input type="text" id="searchInput" placeholder="Search by game (e.g., Football, Cricket)" 
@@ -37,33 +59,191 @@
 
         <div class="container mx-auto p-6">
             <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Available Turfs</h2>
-        
-            <!-- Turf Cards Container -->
             <div id="turf-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </div>
+    </main>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="booking-modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4">Book Turf</h3>
+            <form id="bookingForm">
+                <input type="hidden" id="turfId">
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Turf Name</label>
+                    <input type="text" id="turfName" readonly class="w-full p-2 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Your Name</label>
+                    <input type="text" id="userName" readonly 
+                           class="w-full p-2 border rounded bg-gray-100">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Mobile Number</label>
+                    <input type="tel" id="userPhone" readonly 
+                           class="w-full p-2 border rounded bg-gray-100">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Booking Date</label>
+                    <input type="date" id="bookingDate" required class="w-full p-2 border rounded">
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">From Time</label>
+                        <input type="time" id="fromTime" required class="w-full p-2 border rounded">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">To Time</label>
+                        <input type="time" id="toTime" required class="w-full p-2 border rounded">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Price (₹/hour)</label>
+                    <input type="number" id="price" readonly class="w-full p-2 border rounded">
+                </div>
+                <div class="flex justify-end gap-3">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Submit Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentTurf = null;
+
+        async function loadUserData() {
+            try {
+                const response = await fetch('/api/user');
+                
+                if (response.status === 401) {
+                    // Redirect to login if not authenticated
+                    window.location.href = '/login';
+                    return;
+                }
         
-        <script>
-        fetch("/get-turfs")
-            .then(response => response.json())
-            .then(turfs => {
-                document.getElementById("turf-list").innerHTML = turfs.map(turf => `
-                    <div class="bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <img src="${turf.image}" alt="${turf.name}" class="w-full h-48 object-cover rounded-md">
-                        <h3 class="text-xl font-bold mt-3 text-gray-900">${turf.name}</h3>
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+        
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Auto-fill the form fields
+                    document.getElementById('userName').value = result.user.name;
+                    document.getElementById('userPhone').value = result.user.phone;
+                    
+                    // Update bookings link
+                    document.getElementById('myBookingsLink').href = 
+                        `/user_bookings.html?phone=${encodeURIComponent(result.user.phone)}`;
+                    
+                    // Store in localStorage
+                    localStorage.setItem('userPhone', result.user.phone);
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                <!-- //window.location.href = '/login'; -->
+            }
+        }
+
+        // Fetch and display turfs
+        async function loadTurfs() {
+            try {
+                const response = await fetch('/get-turfs');
+                if (!response.ok) throw new Error('Failed to load turfs');
+                const turfs = await response.json();
+                
+                const turfList = document.getElementById('turf-list');
+                turfList.innerHTML = turfs.map(turf => `
+                    <div class="turf-card bg-white p-5 rounded-lg shadow-md">
+                        <img src="${turf.image}" alt="${turf.name}" class="w-full h-48 object-cover rounded-md mb-3">
+                        <h3 class="text-xl font-bold text-gray-900">${turf.name}</h3>
                         <p class="text-gray-600 text-sm mt-1">📍 ${turf.address}</p>
                         <p class="text-blue-600 font-semibold mt-2">🎮 ${turf.game}</p>
-                        <p class="text-gray-700 mt-1">💰 Price: <span class="font-semibold">₹${turf.price}/hour</span></p>
-                        <p class="text-gray-700">⏰ Timings: <span class="font-semibold">${turf.timing}</span></p>
-                        <button class="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                        <p class="text-gray-700 mt-1">💰 ₹${turf.price}/hour</p>
+                        <p class="text-gray-700">⏰ ${turf.timing}</p>
+                        <button onclick="openBookingModal(${JSON.stringify(turf).replace(/"/g, '&quot;')})" 
+                            class="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
                             Book Now
                         </button>
                     </div>
                 `).join('');
-            });
-        </script>
-        
-    </main>
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('turf-list').innerHTML = `
+                    <div class="col-span-3 text-center text-red-500">
+                        Error loading turfs: ${error.message}
+                    </div>
+                `;
+            }
+        }
 
+        // Open booking modal for specific turf
+        function openBookingModal(turf) {
+            currentTurf = turf;
+            document.getElementById('turfId').value = turf.id;
+            document.getElementById('turfName').value = turf.name;
+            document.getElementById('price').value = turf.price;
+            
+            // Set today's date as default
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('bookingDate').value = today;
+            document.getElementById('bookingDate').min = today;
+            
+            // Show modal
+            document.getElementById('bookingModal').style.display = 'flex';
+        }
 
+        // Close modal
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+
+        // Handle form submission
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const bookingData = {
+                turfId: currentTurf.id,
+                userName: document.getElementById('userName').value,
+                userPhone: document.getElementById('userPhone').value,
+                bookingDate: document.getElementById('bookingDate').value,
+                fromTime: document.getElementById('fromTime').value,
+                toTime: document.getElementById('toTime').value,
+                price: currentTurf.price
+            };
+
+            try {
+                const response = await fetch('/api/bookings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(bookingData)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Booking failed');
+                }
+
+                const result = await response.json();
+                alert(`Booking successful! Status: ${result.booking.status}`);
+                closeModal();
+            } catch (error) {
+                console.error('Booking error:', error);
+                alert(`Booking failed: ${error.message}`);
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const userPhone = localStorage.getItem('userPhone');
+            if (userPhone) {
+              document.getElementById('myBookingsLink').href = `/user_bookings.html?phone=${encodeURIComponent(userPhone)}`;
+            }
+            loadUserData();
+            loadTurfs();
+          });
+    </script>
 </body>
 </html>

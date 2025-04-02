@@ -3,29 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turf Booking - Signup</title><link rel="stylesheet" href="./output.css" />
+    <title>Turf Booking - Signup</title>
+    <link rel="stylesheet" href="/output.css" />
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100 bg-url('https://source.unsplash.com/1600x900/?soccer') bg-cover bg-center">
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg mx-auto mt-16">
         <h2 class="text-2xl font-bold text-center text-gray-800">Create an Account</h2>
     
-        <form action="/signup" method="POST" class="space-y-4">
+        <form id="signupForm" class="space-y-4">
             <div>
                 <label class="block text-gray-700 font-medium">Email</label>
-                <input type="email" name="email" placeholder="Enter Email"
-                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+                <input type="email" name="email" placeholder="Enter Email" required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
     
             <div>
                 <label class="block text-gray-700 font-medium">Phone</label>
-                <input type="text" name="phone" placeholder="Enter Phone"
-                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+                <input type="text" name="phone" placeholder="Enter Phone" required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
     
             <div>
                 <label class="block text-gray-700 font-medium">Password</label>
-                <input type="password" name="password" placeholder="Enter Password"
-                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+                <input type="password" name="password" placeholder="Enter Password" required
+                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
     
             <button type="submit"
@@ -38,6 +39,41 @@
             Already have an account? <a href="/login" class="text-blue-500 hover:underline">Login</a>
         </p>
     </div>
-    
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: formData.get('email'),
+                        phone: formData.get('phone'),
+                        password: formData.get('password')
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Store phone in localStorage
+                    localStorage.setItem('userPhone', result.phone);
+                    // Redirect to main page
+                    window.location.href = '/main';
+                } else {
+                    alert(result.error || 'Signup failed');
+                }
+            } catch (error) {
+                alert('An error occurred during signup');
+                console.error('Signup error:', error);
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="/output.css">
+    <style>
+        .booking-card {
+            transition: all 0.3s ease;
+        }
+        .booking-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .status-pending {
+            background-color: #FEF3C7;
+            color: #92400E;
+        }
+        .status-confirmed {
+            background-color: #D1FAE5;
+            color: #065F46;
+        }
+        .status-cancelled {
+            background-color: #FEE2E2;
+            color: #991B1B;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-gray-100 p-6 flex justify-between items-center shadow-md">
+        <div class="flex items-center gap-2">
+            <img class="w-10 h-10" src="YOUR_LOGO_URL" alt="Logo">
+            <h3 class="text-md text-gray-700 font-medium">TurfBook</h3>
+        </div>
+        <div class="flex gap-3 items-center">
+            <a href="/main" class="hover:-translate-y-1 transition">Back to Turfs</a>
+            <a href="./index.html" class="hover:-translate-y-1 transition">Logout</a>
+        </div>
+    </nav>
+
+    <main class="p-6">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">My Bookings</h1>
+            
+            <div id="no-bookings" class="text-center py-10 hidden">
+                <p class="text-gray-500 text-lg">You don't have any bookings yet.</p>
+                <a href="/main" class="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Book a Turf Now</a>
+            </div>
+            
+            <div id="bookings-container" class="grid grid-cols-1 gap-6"></div>
+        </div>
+    </main>
+
+    <script>
+        // Get user phone from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const userPhone = urlParams.get('phone');
+
+        async function loadUserBookings() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userPhone = urlParams.get('phone');
+        
+            try {
+                const response = await fetch(`/api/user-bookings?phone=${encodeURIComponent(userPhone)}`);
+                
+                if (!response.ok) throw new Error('Failed to load bookings');
+                
+                const bookings = await response.json();
+                
+                if (bookings.length === 0) {
+                    document.getElementById('no-bookings').classList.remove('hidden');
+                    return;
+                }
+        
+                const container = document.getElementById('bookings-container');
+                container.innerHTML = bookings.map(booking => {
+                    // Add null check for Turf and image
+                    const turfImage = booking.Turf?.image || '/default-turf.jpg'; // Add a default image
+                    const turfName = booking.Turf?.name || 'Unknown Turf';
+                    const turfAddress = booking.Turf?.address || 'Address not available';
+                    const turfGame = booking.Turf?.game || 'Game not specified';
+        
+                    return `
+                        <div class="booking-card bg-white p-5 rounded-lg shadow-md">
+                            <div class="flex flex-col md:flex-row gap-4">
+                                <img src="${turfImage}" alt="${turfName}" 
+                                    class="w-full md:w-1/3 h-48 object-cover rounded-md">
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <h3 class="text-xl font-bold text-gray-900">${turfName}</h3>
+                                        <span class="px-3 py-1 rounded-full text-sm font-medium status-${booking.status}">
+                                            ${booking.status}
+                                        </span>
+                                    </div>
+                                    <p class="text-gray-600 mt-2">${turfAddress}</p>
+                                    <p class="text-blue-600 font-semibold mt-1">${turfGame}</p>
+                                    
+                                    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Booking Date</p>
+                                            <p class="font-medium">${new Date(booking.bookingDate).toLocaleDateString()}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500">Time Slot</p>
+                                            <p class="font-medium">${booking.fromTime} - ${booking.toTime}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500">Price</p>
+                                            <p class="font-medium">₹${booking.price}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+                document.getElementById('bookings-container').innerHTML = `
+                    <div class="text-center text-red-500 py-10">
+                        Error loading bookings: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadUserBookings);
+    </script>
+</body>
+</html>

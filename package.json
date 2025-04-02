@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run tailwind\"",
     "server": "node server.js",
-    "tailwind": "npx tailwindcss -i ./input.css -o ./output.css --watch"  
+    "tailwind": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"  
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
