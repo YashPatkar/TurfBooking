@@ -3,8 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="/output.css" />
+    <title>TurfBook Admin</title>
+    <link rel="stylesheet" href="/output.css">
+    <style>
+        body {
+            background-color: #f0f8ff; /* Light blue background */
+            background-image: url('https://imgs.search.brave.com/5Jz5XK0g4zQ7Qx3Y9Q9Q9Q9Q9Q9Q9Q9Q9Q9Q9Q9Q9Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/ODQ3Mjk5NzYzNTQt/YTQ2YjQ5YzQ5YzQ5');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-blend-mode: overlay;
+        }
+        
+        .sports-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            border: 2px solid #1e40af;
+            transition: all 0.3s ease;
+        }
+        
+        .sports-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .sports-btn {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .sports-btn:hover {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            transform: translateY(-2px);
+        }
+        
+        .sports-nav {
+            background: rgba(30, 64, 175, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        
+        .field-pattern {
+            background-image: url('https://imgs.search.brave.com/5Jz5XK0g4zQ7Qx3Y9Q9Q9Q9Q9Q9Q9Q9Q9Q9Q9Q9Q9Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/ODQ3Mjk5NzYzNTQt/YTQ2YjQ5YzQ5YzQ5');
+            background-size: 200px;
+            opacity: 0.1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #1e40af;
+        }
+    </style>
+</head>
+<body onload="checkPassword()">
+    <!-- Background pattern -->
+    <div class="field-pattern"></div>
+
+    <!-- Password Entry Box -->
+    <div id="login-box" class="flex justify-center items-center h-screen">
+        <div class="login-container p-8 w-full max-w-md mx-4">
+            <div class="text-center mb-6">
+                <img src="https://imgs.search.brave.com/ZKITmCMuEQeF398oM3tWGiwhNUGtnYHIRgMgYUBeV_k/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA5LzE1LzU1Lzg3/LzM2MF9GXzkxNTU1/ODc4MF8zVmkxMkk5/MDYxbWZvdTB3cVVG/SkZKNnJFcHRsSjF2/cy5qcGc" 
+                     alt="TurfBook Logo" class="w-20 h-20 mx-auto mb-4 rounded-full border-4 border-blue-500">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">TurfBook Admin</h2>
+                <p class="text-gray-600">Enter your credentials to continue</p>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">Password</label>
+                    <input type="password" id="password-input" placeholder="Enter Password" 
+                           class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                
+                <button onclick="verifyPassword()" 
+                        class="sports-btn w-full mt-6 px-4 py-3 rounded-lg font-bold text-lg">
+                    <i class="fas fa-sign-in-alt mr-2"></i> Enter Admin Panel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Content (Hidden Initially) -->
+    <div id="admin-content" style="display: none;">
+        <nav class="sports-nav p-4 flex justify-between items-center shadow-lg">
+            <div class="flex items-center gap-3">
+                <img src="https://imgs.search.brave.com/ZKITmCMuEQeF398oM3tWGiwhNUGtnYHIRgMgYUBeV_k/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA5LzE1LzU1Lzg3/LzM2MF9GXzkxNTU1/ODc4MF8zVmkxMkk5/MDYxbWZvdTB3cVVG/SkZKNnJFcHRsSjF2/cy5qcGc" 
+                     alt="Logo" class="w-12 h-12 rounded-full border-2 border-white">
+                <h3 class="text-xl font-bold text-white">TurfBook Admin</h3>
+            </div>
+            
+            <div class="flex gap-4 items-center">
+                <a href="./bookings.html" class="sports-btn px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-calendar-alt mr-2"></i> Bookings
+                </a>
+                
+                <a href="./user_data.html" class="sports-btn px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-users mr-2"></i> Users
+                </a>
+                
+                <a href="./main.html" class="sports-btn px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-home mr-2"></i> Main
+                </a>
+                
+                <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                </button>
+            </div>
+        </nav>
+
+        <!-- Admin Form -->
+        <main class="p-6 max-w-2xl mx-auto">
+            <div class="sports-card p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Add New Turf</h2>
+                    <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
+                </div>
+                
+                <form action="/add-turf" method="POST" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Turf Name</label>
+                            <input type="text" name="name" placeholder="Enter Turf Name"
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Game</label>
+                            <select name="game" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option>Football</option>
+                                <option>Cricket</option>
+                                <option>Badminton</option>
+                                <option>Basketball</option>
+                                <option>Tennis</option>
+                                <option>Volleyball</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Image URL</label>
+                        <input type="text" name="image" placeholder="Enter Image URL"
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Address</label>
+                        <input type="text" name="address" placeholder="Enter Address"
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Price (₹/hr)</label>
+                            <input type="number" name="price" placeholder="Enter Price"
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Timing</label>
+                            <input type="text" name="timing" placeholder="E.g., 6 AM - 10 PM"
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="sports-btn w-full mt-8 px-6 py-4 rounded-lg font-bold text-lg">
+                        <i class="fas fa-plus-circle mr-2"></i> Add Turf
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <script>
         function checkPassword() {
@@ -17,7 +198,7 @@
                 loginBox.style.display = "none";
             } else {
                 content.style.display = "none";
-                loginBox.style.display = "block";
+                loginBox.style.display = "flex";
             }
         }
 
@@ -25,115 +206,19 @@
             let passwordInput = document.getElementById("password-input").value;
             if (passwordInput === "admin123") {
                 sessionStorage.setItem("admin-auth", "true");
-                checkPassword(); // Show content after successful login
+                checkPassword();
             } else {
                 alert("Incorrect Password!");
-                location.reload(); // Reload to reset input
+                document.getElementById("password-input").value = "";
+                document.getElementById("password-input").focus();
             }
         }
 
         function logout() {
             sessionStorage.removeItem("admin-auth");
-            alert("Logged out!");
-            location.reload(); // Reload page to hide content
+            checkPassword();
+            document.getElementById("password-input").value = "";
         }
     </script>
-
-</head>
-<body onload="checkPassword()" class="bg-gray-100">
-
-    <!-- Password Entry Box -->
-    <div id="login-box" class="flex justify-center items-center h-screen">
-        <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-            <h2 class="text-xl font-bold mb-4">Enter Admin Password</h2>
-            <input type="password" id="password-input" placeholder="Enter Password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <button onclick="verifyPassword()" class="w-full mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                Submit
-            </button>
-        </div>
-    </div>
-
-    <!-- Admin Panel Content (Hidden Initially) -->
-    <div id="admin-content" style="display: none;">
-        <nav class="bg-gray-100 p-6 flex justify-between items-center shadow-md">
-            <div class="flex items-center gap-2">
-                <img class="w-10 h-10" src="https://imgs.search.brave.com/NPF_1fmjfZZhqESkwmRSc33lpAKGHzDS4cl50HdaHXk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcm8y/LWJhci1zMy1jZG4t/Y2YubXlwb3J0Zm9s/aW8uY29tLzc5OTA4/ODgwLTdiMjItNDA0/ZC1iNzFmLTg5Yzlk/YTRkYzg4Mi84N2Mx/ZjBhMy1iZTlhLTRh/NmEtODQ3Ni02YmMy/MDIzNmNjZDRfcndf/MTkyMC5wbmc_aD01/ZTNlYThiZjI1YzRh/ZDAwNGIxY2QzNDQ3/MDBhZTQxYQ" alt="Logo" />
-                <h3 class="text-md text-gray-700 font-medium">TurfBook</h3>
-            </div>
-            <div class="flex gap-3 items-center">
-                <a href="./bookings.html">
-                    <button class="border-2 p-3 rounded bg-blue-500 text-white hover:bg-blue-800 px-5">
-                        bookings
-                    </button>
-                </a>
-                <a href="./user_data.html">
-                    <button class="border-2 p-3 rounded bg-blue-500 text-white hover:bg-blue-800 px-5">
-                        UsersData
-                    </button>
-                </a>
-                <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg">Logout</button>
-                <a href="./main.html">
-                    <button class="border-2 p-3 rounded bg-blue-500 text-white hover:bg-blue-800 px-5">
-                        Back to main
-                    </button>
-                </a>
-            </div>
-        </nav>
-
-        <!-- Admin Form -->
-        <main class="p-6 max-w-lg mx-auto bg-white shadow-lg rounded-lg mt-10">
-            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Add New Turf</h2>
-        
-            <form action="/add-turf" method="POST" class="space-y-4">
-                <div>
-                    <label class="block text-gray-700 font-medium">Turf Name</label>
-                    <input type="text" name="name" placeholder="Enter Turf Name"
-                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
-                </div>
-        
-                <div>
-                    <label class="block text-gray-700 font-medium">Image URL</label>
-                    <input type="text" name="image" placeholder="Enter Image URL"
-                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
-                </div>
-        
-                <div>
-                    <label class="block text-gray-700 font-medium">Address</label>
-                    <input type="text" name="address" placeholder="Enter Address"
-                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
-                </div>
-        
-                <div>
-                    <label class="block text-gray-700 font-medium">Game</label>
-                    <select name="game"
-                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        <option>Football</option>
-                        <option>Cricket</option>
-                        <option>Badminton</option>
-                        <option>Basketball</option>
-                    </select>
-                </div>
-        
-                <div>
-                    <label class="block text-gray-700 font-medium">Price (₹/hr)</label>
-                    <input type="number" name="price" placeholder="Enter Price"
-                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
-                </div>
-        
-                <div>
-                    <label class="block text-gray-700 font-medium">Timing</label>
-                    <input type="text" name="timing" placeholder="E.g., 10 AM - 9 PM"
-                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
-                </div>
-        
-                <button type="submit"
-                    class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition shadow-md font-semibold">
-                    Add Turf
-                </button>
-            </form>
-        </main>
-        
-    </div>
-
 </body>
 </html>

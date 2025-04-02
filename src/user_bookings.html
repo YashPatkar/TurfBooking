@@ -3,129 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bookings</title>
-    <link rel="stylesheet" href="/output.css">
+    <title>My Bookings - TurfBook</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .booking-card {
-            transition: all 0.3s ease;
+        :root {
+            --primary-color: #1e40af;
+            --secondary-color: #3b82f6;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
         }
-        .booking-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .table thead {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+        }
+
+        .table th {
+            border-bottom: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .table td {
+            vertical-align: middle;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .status-badge {
+            padding: 0.35rem 0.65rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
         .status-pending {
-            background-color: #FEF3C7;
-            color: #92400E;
+            background-color: #fffbeb;
+            color: #b45309;
         }
+
         .status-confirmed {
-            background-color: #D1FAE5;
-            color: #065F46;
+            background-color: #ecfdf5;
+            color: #065f46;
         }
+
         .status-cancelled {
-            background-color: #FEE2E2;
-            color: #991B1B;
+            background-color: #fef2f2;
+            color: #991b1b;
+        }
+
+        .action-btn {
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-delete {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: none;
+        }
+
+        .btn-delete:hover {
+            background-color: #fecaca;
+            color: #991b1b;
+        }
+
+        .empty-state {
+            padding: 3rem 0;
+            text-align: center;
+            color: #64748b;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+        .booking-image{
+            width:100px;
+            height:100px;
+            object-fit:cover;
+            border-radius:8px;
+            margin-right:10px;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 300px;
+        }
+
+        .search-box i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .search-input {
+            padding-left: 40px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
         }
     </style>
 </head>
-<body class="bg-gray-100">
-    <nav class="bg-gray-100 p-6 flex justify-between items-center shadow-md">
-        <div class="flex items-center gap-2">
-            <img class="w-10 h-10" src="YOUR_LOGO_URL" alt="Logo">
-            <h3 class="text-md text-gray-700 font-medium">TurfBook</h3>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h3 mb-0"><i class="fas fa-calendar-alt me-2"></i> My Bookings</h1>
+                    <p class="mb-0 opacity-75">Your Turf Bookings</p>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" class="form-control search-input" placeholder="Search bookings...">
+                </div>
+            </div>
         </div>
-        <div class="flex gap-3 items-center">
-            <a href="/main" class="hover:-translate-y-1 transition">Back to Turfs</a>
-            <a href="./index.html" class="hover:-translate-y-1 transition">Logout</a>
-        </div>
-    </nav>
+    </div>
 
-    <main class="p-6">
-        <div class="container mx-auto">
-            <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">My Bookings</h1>
-            
-            <div id="no-bookings" class="text-center py-10 hidden">
-                <p class="text-gray-500 text-lg">You don't have any bookings yet.</p>
-                <a href="/main" class="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Book a Turf Now</a>
+    <div class="container">
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Turf</th>
+                            <th>Date & Time</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTableBody">
+                        <tr>
+                            <td colspan="5" class="text-center py-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             
-            <div id="bookings-container" class="grid grid-cols-1 gap-6"></div>
+            <div id="emptyState" class="empty-state d-none">
+                <i class="far fa-calendar-times"></i>
+                <h5 class="mb-2">No Bookings Found</h5>
+                <p class="mb-0">You don't have any bookings yet.</p>
+            </div>
         </div>
-    </main>
+    </div>
 
     <script>
-        // Get user phone from URL
         const urlParams = new URLSearchParams(window.location.search);
         const userPhone = urlParams.get('phone');
+        let allBookings = []; // Store all bookings for search
 
-        async function loadUserBookings() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const userPhone = urlParams.get('phone');
-        
+        function formatTime(timeString) {
+            if (!timeString) return '';
+            const time = timeString.substring(0, 5);
+            return time;
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        function formatPrice(price) {
+            return price ? `₹${price}` : 'N/A';
+        }
+
+        function getStatusClass(status) {
+            switch (status) {
+                case 'confirmed': return 'status-confirmed';
+                case 'cancelled': return 'status-cancelled';
+                default: return 'status-pending';
+            }
+        }
+
+        async function deleteBooking(bookingId) {
+            if (!confirm('Are you sure you want to cancel this booking?')) return;
+            try {
+                const response = await fetch(`/api/bookings/${bookingId}`, { method: 'DELETE' });
+                if (!response.ok) throw new Error('Failed to delete booking');
+                loadBookings();
+                alert('Booking cancelled successfully!');
+            } catch (error) {
+                console.error('Error deleting booking:', error);
+                alert('Failed to cancel booking: ' + error.message);
+            }
+        }
+
+        async function loadBookings() {
             try {
                 const response = await fetch(`/api/user-bookings?phone=${encodeURIComponent(userPhone)}`);
-                
-                if (!response.ok) throw new Error('Failed to load bookings');
-                
                 const bookings = await response.json();
-                
-                if (bookings.length === 0) {
-                    document.getElementById('no-bookings').classList.remove('hidden');
-                    return;
-                }
-        
-                const container = document.getElementById('bookings-container');
-                container.innerHTML = bookings.map(booking => {
-                    // Add null check for Turf and image
-                    const turfImage = booking.Turf?.image || '/default-turf.jpg'; // Add a default image
-                    const turfName = booking.Turf?.name || 'Unknown Turf';
-                    const turfAddress = booking.Turf?.address || 'Address not available';
-                    const turfGame = booking.Turf?.game || 'Game not specified';
-        
-                    return `
-                        <div class="booking-card bg-white p-5 rounded-lg shadow-md">
-                            <div class="flex flex-col md:flex-row gap-4">
-                                <img src="${turfImage}" alt="${turfName}" 
-                                    class="w-full md:w-1/3 h-48 object-cover rounded-md">
-                                <div class="flex-1">
-                                    <div class="flex justify-between items-start">
-                                        <h3 class="text-xl font-bold text-gray-900">${turfName}</h3>
-                                        <span class="px-3 py-1 rounded-full text-sm font-medium status-${booking.status}">
-                                            ${booking.status}
-                                        </span>
-                                    </div>
-                                    <p class="text-gray-600 mt-2">${turfAddress}</p>
-                                    <p class="text-blue-600 font-semibold mt-1">${turfGame}</p>
-                                    
-                                    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <p class="text-sm text-gray-500">Booking Date</p>
-                                            <p class="font-medium">${new Date(booking.bookingDate).toLocaleDateString()}</p>
-                                        </div>
-                                        <div>
-                                            <p class="text-sm text-gray-500">Time Slot</p>
-                                            <p class="font-medium">${booking.fromTime} - ${booking.toTime}</p>
-                                        </div>
-                                        <div>
-                                            <p class="text-sm text-gray-500">Price</p>
-                                            <p class="font-medium">₹${booking.price}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
+                allBookings = bookings; // Store all bookings
+
+                renderBookings(bookings);
             } catch (error) {
                 console.error('Error loading bookings:', error);
-                document.getElementById('bookings-container').innerHTML = `
-                    <div class="text-center text-red-500 py-10">
-                        Error loading bookings: ${error.message}
-                    </div>
+                document.getElementById('bookingsTableBody').innerHTML = `
+                    <tr><td colspan="5" class="text-center py-4 text-danger">Error loading bookings: ${error.message}</td></tr>
                 `;
             }
         }
 
-        document.addEventListener('DOMContentLoaded', loadUserBookings);
+        function renderBookings(bookings) {
+            const tableBody = document.getElementById('bookingsTableBody');
+            const emptyState = document.getElementById('emptyState');
+
+            if (bookings.length === 0) {
+                tableBody.innerHTML = '';
+                emptyState.classList.remove('d-none');
+                return;
+            }
+
+            emptyState.classList.add('d-none');
+            tableBody.innerHTML = bookings.map(booking => `
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${booking.turfImage || 'https://via.placeholder.com/40'}" class="booking-image" alt="${booking.turfName}">
+                            <div>
+                                <div class="fw-semibold">${booking.turfName || 'Turf not found'}</div>
+                                <small class="text-muted">${booking.turfGame}</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="fw-semibold">${formatDate(booking.bookingDate)}</div>
+                        <small class="text-muted">${formatTime(booking.fromTime)} - ${formatTime(booking.toTime)}</small>
+                    </td>
+                    <td class="fw-semibold">${formatPrice(booking.price)}</td>
+                    <td><span class="status-badge ${getStatusClass(booking.status)}">${booking.status}</span></td>
+                    <td>
+                        <button class="btn btn-delete action-btn" onclick="deleteBooking(${booking.id})"><i class="fas fa-trash-alt me-1"></i> Cancel</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filteredBookings = allBookings.filter(booking => {
+                return (booking.turfName && booking.turfName.toLowerCase().includes(searchTerm)) ||
+                       (booking.turfGame && booking.turfGame.toLowerCase().includes(searchTerm)) ||
+                       (booking.bookingDate && formatDate(booking.bookingDate).toLowerCase().includes(searchTerm)) ||
+                       (booking.status && booking.status.toLowerCase().includes(searchTerm));
+            });
+            renderBookings(filteredBookings);
+        });
+
+        document.addEventListener('DOMContentLoaded', loadBookings);
     </script>
 </body>
 </html>
