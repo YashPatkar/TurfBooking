@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management | TurfBook</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1e40af;
+            --secondary-blue: #3b82f6;
+            --accent-green: #10b981;
+            --danger-red: #ef4444;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .table-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .table thead {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+        }
+        
+        .table th {
+            border-bottom: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .table td {
+            vertical-align: middle;
+            border-top: 1px solid #f1f5f9;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e0f2fe;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .action-btn {
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-delete {
+            background-color: #fee2e2;
+            color: var(--danger-red);
+            border: none;
+        }
+        
+        .btn-delete:hover {
+            background-color: #fecaca;
+            color: #b91c1c;
+        }
+        
+        .search-box {
+            position: relative;
+            max-width: 300px;
+        }
+        
+        .search-box i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+        
+        .search-input {
+            padding-left: 40px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+        
+        .search-input:focus {
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .empty-state {
+            padding: 3rem 0;
+            text-align: center;
+            color: #64748b;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+        
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+        
+        .pagination .page-link {
+            color: var(--primary-blue);
+        }
+        
+        .user-email {
+            display: block;
+            font-weight: 500;
+            color: #1e293b;
+        }
+        
+        .user-phone {
+            display: block;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        
+        .user-joined {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h3 mb-0"><i class="fas fa-users me-2"></i> User Management</h1>
+                    <p class="mb-0 opacity-75">Manage all registered users</p>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="form-control search-input" placeholder="Search users..." id="searchInput">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Contact</th>
+                            <th>Joined</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr>
+                            <td colspan="4" class="text-center py-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="emptyState" class="empty-state d-none">
+                <i class="far fa-user-slash"></i>
+                <h5 class="mb-2">No Users Found</h5>
+                <p class="mb-0">There are currently no registered users</p>
+            </div>
+        </div>
+        
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div class="text-muted small" id="userCount">Loading...</div>
+            <nav aria-label="Users pagination">
+                <ul class="pagination pagination-sm mb-0" id="pagination">
+                    <!-- Pagination will be added dynamically -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        // Format date for display
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Get initials for avatar
+        function getInitials(email) {
+            if (!email) return '?';
+            const parts = email.split('@')[0].split(/[._-]/);
+            return parts.map(part => part.charAt(0).toUpperCase()).join('').substring(0, 2);
+        }
+
+        // Delete a user
+        async function deleteUser(userId, email) {
+            if (!confirm(`Are you sure you want to delete user ${email}? This action cannot be undone.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/users/${userId}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(result.error || 'Failed to delete user');
+                }
+                
+                if (result.success) {
+                    showToast('User deleted successfully', 'success');
+                    fetchUsers(); // Refresh the table
+                } else {
+                    showToast('User not found or already deleted', 'warning');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('Error deleting user: ' + error.message, 'danger');
+            }
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            // In a real implementation, you would use a toast library
+            alert(`${type.toUpperCase()}: ${message}`);
+        }
+
+        // Fetch and display user data
+        async function fetchUsers() {
+            try {
+                const response = await fetch('/api/users');
+                const users = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(users.error || 'Failed to fetch users');
+                }
+                
+                const tableBody = document.getElementById('usersTableBody');
+                const emptyState = document.getElementById('emptyState');
+                
+                if (users.length === 0) {
+                    tableBody.innerHTML = '';
+                    emptyState.classList.remove('d-none');
+                    document.getElementById('userCount').textContent = '0 users found';
+                    return;
+                }
+                
+                emptyState.classList.add('d-none');
+                document.getElementById('userCount').textContent = `${users.length} ${users.length === 1 ? 'user' : 'users'} found`;
+                
+                tableBody.innerHTML = users.map(user => `
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="user-avatar">${getInitials(user.email)}</div>
+                                <div>
+                                    <span class="user-email">${user.email}</span>
+                                    <span class="user-joined">ID: ${user.id}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="user-phone">${user.phone || 'Not provided'}</span>
+                        </td>
+                        <td>
+                            <span class="user-joined">${formatDate(user.createdAt)}</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-delete action-btn" 
+                                    onclick="deleteUser(${user.id}, '${user.email}')">
+                                <i class="fas fa-trash-alt me-1"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('usersTableBody').innerHTML = `
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-danger">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            Error loading users: ${error.message}
+                        </td>
+                    </tr>
+                `;
+                document.getElementById('emptyState').classList.add('d-none');
+            }
+        }
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', fetchUsers);
+    </script>
+</body>
+</html>

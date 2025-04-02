@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings - TurfBook</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1e40af;
+            --secondary-color: #3b82f6;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+        }
+
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .table thead {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+        }
+
+        .table th {
+            border-bottom: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .table td {
+            vertical-align: middle;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .status-badge {
+            padding: 0.35rem 0.65rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .status-pending {
+            background-color: #fffbeb;
+            color: #b45309;
+        }
+
+        .status-confirmed {
+            background-color: #ecfdf5;
+            color: #065f46;
+        }
+
+        .status-cancelled {
+            background-color: #fef2f2;
+            color: #991b1b;
+        }
+
+        .action-btn {
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-delete {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: none;
+        }
+
+        .btn-delete:hover {
+            background-color: #fecaca;
+            color: #991b1b;
+        }
+
+        .empty-state {
+            padding: 3rem 0;
+            text-align: center;
+            color: #64748b;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+        .booking-image{
+            width:100px;
+            height:100px;
+            object-fit:cover;
+            border-radius:8px;
+            margin-right:10px;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 300px;
+        }
+
+        .search-box i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .search-input {
+            padding-left: 40px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h3 mb-0"><i class="fas fa-calendar-alt me-2"></i> My Bookings</h1>
+                    <p class="mb-0 opacity-75">Your Turf Bookings</p>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" class="form-control search-input" placeholder="Search bookings...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Turf</th>
+                            <th>Date & Time</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTableBody">
+                        <tr>
+                            <td colspan="5" class="text-center py-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="emptyState" class="empty-state d-none">
+                <i class="far fa-calendar-times"></i>
+                <h5 class="mb-2">No Bookings Found</h5>
+                <p class="mb-0">You don't have any bookings yet.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const userPhone = urlParams.get('phone');
+        let allBookings = []; // Store all bookings for search
+
+        function formatTime(timeString) {
+            if (!timeString) return '';
+            const time = timeString.substring(0, 5);
+            return time;
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        function formatPrice(price) {
+            return price ? `₹${price}` : 'N/A';
+        }
+
+        function getStatusClass(status) {
+            switch (status) {
+                case 'confirmed': return 'status-confirmed';
+                case 'cancelled': return 'status-cancelled';
+                default: return 'status-pending';
+            }
+        }
+
+        async function deleteBooking(bookingId) {
+            if (!confirm('Are you sure you want to cancel this booking?')) return;
+            try {
+                const response = await fetch(`/api/bookings/${bookingId}`, { method: 'DELETE' });
+                if (!response.ok) throw new Error('Failed to delete booking');
+                loadBookings();
+                alert('Booking cancelled successfully!');
+            } catch (error) {
+                console.error('Error deleting booking:', error);
+                alert('Failed to cancel booking: ' + error.message);
+            }
+        }
+
+        async function loadBookings() {
+            try {
+                const response = await fetch(`/api/user-bookings?phone=${encodeURIComponent(userPhone)}`);
+                const bookings = await response.json();
+                allBookings = bookings; // Store all bookings
+
+                renderBookings(bookings);
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+                document.getElementById('bookingsTableBody').innerHTML = `
+                    <tr><td colspan="5" class="text-center py-4 text-danger">Error loading bookings: ${error.message}</td></tr>
+                `;
+            }
+        }
+
+        function renderBookings(bookings) {
+            const tableBody = document.getElementById('bookingsTableBody');
+            const emptyState = document.getElementById('emptyState');
+
+            if (bookings.length === 0) {
+                tableBody.innerHTML = '';
+                emptyState.classList.remove('d-none');
+                return;
+            }
+
+            emptyState.classList.add('d-none');
+            tableBody.innerHTML = bookings.map(booking => `
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${booking.turfImage || 'https://via.placeholder.com/40'}" class="booking-image" alt="${booking.turfName}">
+                            <div>
+                                <div class="fw-semibold">${booking.turfName || 'Turf not found'}</div>
+                                <small class="text-muted">${booking.turfGame}</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="fw-semibold">${formatDate(booking.bookingDate)}</div>
+                        <small class="text-muted">${formatTime(booking.fromTime)} - ${formatTime(booking.toTime)}</small>
+                    </td>
+                    <td class="fw-semibold">${formatPrice(booking.price)}</td>
+                    <td><span class="status-badge ${getStatusClass(booking.status)}">${booking.status}</span></td>
+                    <td>
+                        <button class="btn btn-delete action-btn" onclick="deleteBooking(${booking.id})"><i class="fas fa-trash-alt me-1"></i> Cancel</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filteredBookings = allBookings.filter(booking => {
+                return (booking.turfName && booking.turfName.toLowerCase().includes(searchTerm)) ||
+                       (booking.turfGame && booking.turfGame.toLowerCase().includes(searchTerm)) ||
+                       (booking.bookingDate && formatDate(booking.bookingDate).toLowerCase().includes(searchTerm)) ||
+                       (booking.status && booking.status.toLowerCase().includes(searchTerm));
+            });
+            renderBookings(filteredBookings);
+        });
+
+        document.addEventListener('DOMContentLoaded', loadBookings);
+    </script>
+</body>
+</html>

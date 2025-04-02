@@ -3,76 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title><link rel="stylesheet" href="./output.css" />
+    <title>Feedback | TurfBook</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feedback-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feedback-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15);
+        }
+        
+        .star {
+            transition: all 0.2s ease;
+        }
+        
+        .star:hover {
+            transform: scale(1.2);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .success-message {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .input-field:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-
+<body class="min-h-screen">
     <!-- Navbar -->
-    <nav class="bg-gray-100 p-6 flex justify-between items-center shadow-md">
-        <div class="flex items-center gap-2">
-          <img
-            class="w-10 h-10"
-            src="https://imgs.search.brave.com/NPF_1fmjfZZhqESkwmRSc33lpAKGHzDS4cl50HdaHXk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcm8y/LWJhci1zMy1jZG4t/Y2YubXlwb3J0Zm9s/aW8uY29tLzc5OTA4/ODgwLTdiMjItNDA0/ZC1iNzFmLTg5Yzlk/YTRkYzg4Mi84N2Mx/ZjBhMy1iZTlhLTRh/NmEtODQ3Ni02YmMy/MDIzNmNjZDRfcndf/MTkyMC5wbmc_aD01/ZTNlYThiZjI1YzRh/ZDAwNGIxY2QzNDQ3/MDBhZTQxYQ"
-            alt="Logo"
-          />
-          <h3 class="text-md text-gray-700 font-medium">TurfBook</h3>
-        </div>
-        <div class="flex gap-3 items-center">
-          <a href="./feedback.html">     
-              Feedback
-          </a>
-        </div>
-      </nav>
-
-      <main class="p-6 bg-gray-50 min-h-screen flex flex-col items-center">
-        <h2 class="text-2xl font-bold mb-6">Give Your Feedback</h2>
-    
-        <form id="feedbackForm" class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-            <!-- Name -->
-            <label class="block text-gray-700 font-semibold mb-1">Your Name</label>
-            <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter your name" required>
-    
-            <!-- Email -->
-            <label class="block text-gray-700 font-semibold mt-4 mb-1">Email</label>
-            <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter your email" required>
-    
-            <!-- Star Rating -->
-            <label class="block text-gray-700 font-semibold mt-4 mb-1">Rate Us</label>
-            <div class="flex space-x-2">
-                <span class="star text-gray-400 text-2xl cursor-pointer">★</span>
-                <span class="star text-gray-400 text-2xl cursor-pointer">★</span>
-                <span class="star text-gray-400 text-2xl cursor-pointer">★</span>
-                <span class="star text-gray-400 text-2xl cursor-pointer">★</span>
-                <span class="star text-gray-400 text-2xl cursor-pointer">★</span>
+    <nav class="navbar text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="https://imgs.search.brave.com/NPF_1fmjfZZhqESkwmRSc33lpAKGHzDS4cl50HdaHXk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcm8y/LWJhci1zMy1jZG4t/Y2YubXlwb3J0Zm9s/aW8uY29tLzc5OTA4/ODgwLTdiMjItNDA0/ZC1iNzFmLTg5Yzlk/YTRkYzg4Mi84N2Mx/ZjBhMy1iZTlhLTRh/NmEtODQ3Ni02YmMy/MDIzNmNjZDRfcndf/MTkyMC5wbmc_aD01/ZTNlYThiZjI1YzRh/ZDAwNGIxY2QzNDQ3/MDBhZTQxYQ" 
+                     alt="Logo" class="w-10 h-10 rounded-full border-2 border-white">
+                <span class="text-xl font-bold">TurfBook</span>
             </div>
-            <input type="hidden" id="rating" value="0">
-    
-            <!-- Comments -->
-            <label class="block text-gray-700 font-semibold mt-4 mb-1">Your Feedback</label>
-            <textarea id="comments" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Write your feedback..." rows="4" required></textarea>
-    
-            <!-- Submit Button -->
-            <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg w-full">Submit Feedback</button>
-        </form>
-    
-        <!-- Success Message -->
-        <p id="successMessage" class="text-green-600 font-semibold mt-4 hidden">Thank you for your feedback! 😊</p>
+            <div>
+                <a href="./main.html" class="nav-link flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Turfs
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-12 px-4 flex-grow">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Share Your Experience</h1>
+                <p class="text-gray-600">We value your feedback to improve our services</p>
+            </div>
+            
+            <div class="feedback-card p-8">
+                <form id="feedbackForm" class="space-y-6">
+                    <!-- Name -->
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">
+                            <i class="fas fa-user mr-2 text-blue-500"></i> Your Name
+                        </label>
+                        <input type="text" id="name" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg input-field focus:outline-none" 
+                               placeholder="Enter your name" required>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">
+                            <i class="fas fa-envelope mr-2 text-blue-500"></i> Email Address
+                        </label>
+                        <input type="email" id="email" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg input-field focus:outline-none" 
+                               placeholder="Enter your email" required>
+                    </div>
+                    
+                    <!-- Star Rating -->
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">
+                            <i class="fas fa-star mr-2 text-blue-500"></i> Rate Your Experience
+                        </label>
+                        <div class="flex justify-center space-x-2">
+                            <span class="star text-gray-300 text-3xl cursor-pointer hover:text-yellow-400">★</span>
+                            <span class="star text-gray-300 text-3xl cursor-pointer hover:text-yellow-400">★</span>
+                            <span class="star text-gray-300 text-3xl cursor-pointer hover:text-yellow-400">★</span>
+                            <span class="star text-gray-300 text-3xl cursor-pointer hover:text-yellow-400">★</span>
+                            <span class="star text-gray-300 text-3xl cursor-pointer hover:text-yellow-400">★</span>
+                        </div>
+                        <input type="hidden" id="rating" value="0">
+                        <div class="flex justify-between text-sm text-gray-500 mt-1">
+                            <span>Poor</span>
+                            <span>Excellent</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Comments -->
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">
+                            <i class="fas fa-comment-alt mr-2 text-blue-500"></i> Your Feedback
+                        </label>
+                        <textarea id="comments" 
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg input-field focus:outline-none" 
+                                  placeholder="Tell us about your experience..." 
+                                  rows="5" required></textarea>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-submit text-white font-semibold py-3 px-6 rounded-lg w-full">
+                        <i class="fas fa-paper-plane mr-2"></i> Submit Feedback
+                    </button>
+                </form>
+                
+                <!-- Success Message -->
+                <div id="successMessage" class="success-message hidden mt-6 p-4 bg-green-50 text-green-700 rounded-lg text-center">
+                    <i class="fas fa-check-circle text-3xl mb-2"></i>
+                    <h3 class="text-xl font-semibold mb-1">Thank You!</h3>
+                    <p>Your feedback has been submitted successfully.</p>
+                </div>
+            </div>
+        </div>
     </main>
-    
+
     <script>
         // Star rating functionality
         const stars = document.querySelectorAll(".star");
         const ratingInput = document.getElementById("rating");
-    
+        
         stars.forEach((star, index) => {
             star.addEventListener("click", () => {
+                // Set rating value
                 ratingInput.value = index + 1;
-                stars.forEach((s, i) => s.classList.toggle("text-yellow-500", i <= index));
+                
+                // Update star display
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.classList.add("text-yellow-400");
+                        s.classList.remove("text-gray-300");
+                    } else {
+                        s.classList.add("text-gray-300");
+                        s.classList.remove("text-yellow-400");
+                    }
+                });
+            });
+            
+            // Hover effect
+            star.addEventListener("mouseover", () => {
+                const currentIndex = Array.from(stars).indexOf(star);
+                stars.forEach((s, i) => {
+                    if (i <= currentIndex) {
+                        s.classList.add("text-yellow-300");
+                    }
+                });
+            });
+            
+            star.addEventListener("mouseout", () => {
+                stars.forEach(s => s.classList.remove("text-yellow-300"));
+                // Restore selected stars
+                if (ratingInput.value > 0) {
+                    stars.forEach((s, i) => {
+                        if (i < ratingInput.value) {
+                            s.classList.add("text-yellow-400");
+                        }
+                    });
+                }
             });
         });
-    
+        
         // Form submission
-        document.getElementById("feedbackForm").addEventListener("submit", function (e) {
+        document.getElementById("feedbackForm").addEventListener("submit", function(e) {
             e.preventDefault();
             
             // Get values
@@ -80,25 +226,30 @@
             const email = document.getElementById("email").value.trim();
             const rating = document.getElementById("rating").value;
             const comments = document.getElementById("comments").value.trim();
-    
+            
+            // Validate
             if (!name || !email || rating === "0" || !comments) {
-                alert("Please fill in all fields and give a rating.");
+                alert("Please complete all fields and provide a rating.");
                 return;
             }
-    
-            console.log("Feedback Submitted:", { name, email, rating, comments });
-    
+            
+            // In a real app, you would send this to your server
+            console.log("Feedback submitted:", { name, email, rating, comments });
+            
             // Show success message
             document.getElementById("successMessage").classList.remove("hidden");
-    
-            // Reset form
-            this.reset();
-            stars.forEach((star) => star.classList.remove("text-yellow-500"));
-            ratingInput.value = "0";
+            
+            // Reset form after 3 seconds
+            setTimeout(() => {
+                this.reset();
+                stars.forEach(star => {
+                    star.classList.add("text-gray-300");
+                    star.classList.remove("text-yellow-400");
+                });
+                ratingInput.value = "0";
+                document.getElementById("successMessage").classList.add("hidden");
+            }, 3000);
         });
     </script>
-    
-
-
 </body>
 </html>
