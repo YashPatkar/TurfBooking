@@ -54,6 +54,13 @@ npm i
 npm i cors
 npm run dev
 
+
 ### 2. Open in Browser
 
 - Visit: http://localhost:3000
+
+### 3. Admin Panel Access
+
+- visit: http://localhost:3000/admin
+
+- Login Password: admin123
