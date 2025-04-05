@@ -70,28 +70,28 @@ npm run dev
 
 ## 📸 Screenshots
 
-### 🔐 Home page
+### 🏠 Home page
 ![Home Page](/assets/screenshots/homepage.png)
 
 ### 🔐 Signup page
 ![Signup Page](/assets/screenshots/signup.png)
 
-### 🔐 Main page
+### ✨ Main page
 ![Main Page](/assets/screenshots/mainpage.png)
 
-### 🔐 User-Booking page
+### 📑 User-Booking page
 ![User-Booking Page](/assets/screenshots/mybooking.png)
 
 ### 🔐 Admin-login page
 ![Admin-login Page](/assets/screenshots/adminaccess.png)
 
-### 🔐 Add-turf page
+### 🧾 Add-turf page
 ![Add-turf Page](/assets/screenshots/addturf.png)
 
-### 🔐 Admin turf Handling page
+### 🎟️ Admin turf Handling page
 ![Admin turf Handling Page](/assets/screenshots/adminbooking.png)
 
-### 🔐 Admin user Handling page
+### 👥 Admin user Handling page
 ![Admin user Handling Page](/assets/screenshots/adminusermanagement.png)
 
-- and many more...😉
+and many more...😉
