@@ -262,6 +262,8 @@ app.post("/api/bookings", async (req, res) => {
     
     res.json({ success: true, booking });
   } catch (error) {
+    console.log(error);
+    console.error("Error creating booking:", error);
     res.status(500).json({ error: "Booking failed" });
   }
 });
