@@ -12,13 +12,13 @@ const cors = require("cors");
 // 2. APP CONFIGURATION
 // ======================
 const app = express();
-const PORT = 3000;
+const PORT = 4000;
 
 // ======================
 // 3. MIDDLEWARE SETUP
 // ======================
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:4000',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -144,11 +144,61 @@ const Booking = sequelize.define("Booking", {
   }
 });
 
+const Payment = sequelize.define("Payment", {
+  bookingId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  userName: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  userPhone: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  turfName: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  amount: {
+    type: DataTypes.FLOAT,
+    allowNull: false
+  },
+  paymentMethod: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "card"
+  },
+  cardNumber: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  cardHolderName: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  status: {
+    type: DataTypes.STRING,
+    defaultValue: "completed",
+    validate: {
+      isIn: [["completed", "failed", "pending"]]
+    }
+  },
+  transactionId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  }
+});
+
 // ======================
 // 6. MODEL RELATIONSHIPS
 // ======================
 Turf.hasMany(Booking);
 Booking.belongsTo(Turf);
+Booking.hasOne(Payment, { foreignKey: 'bookingId' });
+Payment.belongsTo(Booking, { foreignKey: 'bookingId' });
 
 // ======================
 // 7. DATABASE SYNC
@@ -169,6 +219,8 @@ app.get("/main", (req, res) => res.sendFile(path.join(__dirname, "src", "main.ht
 app.get("/admin", (req, res) => res.sendFile(path.join(__dirname, "src", "admin.html")));
 app.get("/users", (req, res) => res.sendFile(path.join(__dirname, "src", "user_data.html")));
 app.get("/bookings", (req, res) => res.sendFile(path.join(__dirname, "src", "bookings.html")));
+app.get("/payment", (req, res) => res.sendFile(path.join(__dirname, "src", "payment.html")));
+app.get("/payments", (req, res) => res.sendFile(path.join(__dirname, "src", "payments.html")));
 
 // ======================
 // 9. API ROUTES
@@ -304,6 +356,81 @@ app.delete("/api/bookings/:id", async (req, res) => {
     res.json({ success: !!deleted });
   } catch (error) {
     res.status(500).json({ error: "Failed to delete booking" });
+  }
+});
+
+// Payment Routes
+app.post("/api/payments", async (req, res) => {
+  try {
+    const { 
+      bookingId, userName, userPhone, turfName,
+      amount, paymentMethod, cardNumber, cardHolderName
+    } = req.body;
+    
+    // Generate a unique transaction ID
+    const transactionId = `TXN${Date.now()}${Math.floor(Math.random() * 1000)}`;
+    
+    const payment = await Payment.create({
+      bookingId,
+      userName,
+      userPhone,
+      turfName,
+      amount,
+      paymentMethod: paymentMethod || "card",
+      cardNumber: cardNumber.replace(/\s/g, '').slice(-4), // Store only last 4 digits
+      cardHolderName,
+      status: "completed",
+      transactionId
+    });
+    
+    // Update booking status to confirmed after payment
+    await Booking.update(
+      { status: "confirmed" },
+      { where: { id: bookingId } }
+    );
+    
+    res.json({ success: true, payment });
+  } catch (error) {
+    console.error("Error creating payment:", error);
+    res.status(500).json({ error: "Payment failed" });
+  }
+});
+
+app.get("/api/payments", async (req, res) => {
+  try {
+    const payments = await Payment.findAll({
+      order: [['createdAt', 'DESC']],
+      include: [{
+        model: Booking,
+        attributes: ['id', 'bookingDate', 'fromTime', 'toTime']
+      }]
+    });
+    res.json(payments);
+  } catch (error) {
+    console.error("Error fetching payments:", error);
+    res.status(500).json({ error: "Failed to fetch payments" });
+  }
+});
+
+app.get("/api/payments/:bookingId", async (req, res) => {
+  try {
+    const bookingId = req.params.bookingId;
+    const payment = await Payment.findOne({
+      where: { bookingId },
+      include: [{
+        model: Booking,
+        attributes: ['id', 'bookingDate', 'fromTime', 'toTime']
+      }]
+    });
+    
+    if (!payment) {
+      return res.status(404).json({ error: "Payment not found" });
+    }
+    
+    res.json(payment);
+  } catch (error) {
+    console.error("Error fetching payment:", error);
+    res.status(500).json({ error: "Failed to fetch payment" });
   }
 });
 

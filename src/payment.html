@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - TurfBook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .payment-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .card-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            min-height: 200px;
+        }
+        
+        .card-chip {
+            width: 50px;
+            height: 40px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .card-number {
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            font-weight: 500;
+            margin: 1rem 0;
+        }
+        
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+        
+        .input-group {
+            position: relative;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            color: #111827;
+            background-color: white;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .btn-pay {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+        }
+        
+        .btn-pay:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-pay:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .booking-summary {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-white mb-2">
+                <i class="fas fa-credit-card mr-2"></i>Complete Payment
+            </h1>
+            <p class="text-white opacity-90">Secure payment gateway for your turf booking</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Payment Form -->
+            <div class="payment-card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Payment Details</h2>
+                
+                <!-- Card Preview -->
+                <div class="card-front mb-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="card-chip"></div>
+                        <i class="fas fa-wifi text-2xl"></i>
+                    </div>
+                    <div class="card-number" id="cardNumberPreview">#### #### #### ####</div>
+                    <div class="card-details">
+                        <div>
+                            <div class="text-xs opacity-75">CARD HOLDER</div>
+                            <div class="font-semibold" id="cardHolderPreview">YOUR NAME</div>
+                        </div>
+                        <div>
+                            <div class="text-xs opacity-75">EXPIRES</div>
+                            <div class="font-semibold" id="cardExpiryPreview">MM/YY</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form id="paymentForm" class="space-y-4">
+                    <input type="hidden" id="bookingId">
+                    <input type="hidden" id="userName">
+                    <input type="hidden" id="userPhone">
+                    <input type="hidden" id="turfName">
+                    <input type="hidden" id="amount">
+                    
+                    <div class="input-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" 
+                               maxlength="19" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="cardHolderName">Card Holder Name</label>
+                        <input type="text" id="cardHolderName" placeholder="John Doe" required>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="input-group">
+                            <label for="expiryDate">Expiry Date</label>
+                            <input type="text" id="expiryDate" placeholder="MM/YY" 
+                                   maxlength="5" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="123" 
+                                   maxlength="3" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-pay" id="payButton">
+                        <i class="fas fa-lock mr-2"></i>Pay Now
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Booking Summary -->
+            <div class="payment-card p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Booking Summary</h2>
+                
+                <div class="booking-summary mb-6">
+                    <div class="summary-item">
+                        <span class="text-gray-600">Turf Name</span>
+                        <span class="font-semibold" id="summaryTurfName">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="text-gray-600">Booking Date</span>
+                        <span class="font-semibold" id="summaryDate">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="text-gray-600">Time Slot</span>
+                        <span class="font-semibold" id="summaryTime">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="text-gray-600">Amount</span>
+                        <span class="font-semibold" id="summaryAmount">₹0</span>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                    <div class="flex items-start">
+                        <i class="fas fa-info-circle text-blue-500 mt-1 mr-3"></i>
+                        <div>
+                            <p class="text-sm text-blue-800">
+                                <strong>Note:</strong>
+                                Your payment information will be saved for record purposes only.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Get booking data from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const bookingId = urlParams.get('bookingId');
+        const bookingData = JSON.parse(decodeURIComponent(urlParams.get('data') || '{}'));
+        
+        // Populate hidden fields
+        if (bookingId) {
+            document.getElementById('bookingId').value = bookingId;
+        }
+        if (bookingData.userName) {
+            document.getElementById('userName').value = bookingData.userName;
+        }
+        if (bookingData.userPhone) {
+            document.getElementById('userPhone').value = bookingData.userPhone;
+        }
+        if (bookingData.turfName) {
+            document.getElementById('turfName').value = bookingData.turfName;
+            document.getElementById('summaryTurfName').textContent = bookingData.turfName;
+        }
+        if (bookingData.amount) {
+            document.getElementById('amount').value = bookingData.amount;
+            document.getElementById('summaryAmount').textContent = `₹${bookingData.amount}`;
+        }
+        if (bookingData.bookingDate) {
+            document.getElementById('summaryDate').textContent = new Date(bookingData.bookingDate).toLocaleDateString();
+        }
+        if (bookingData.fromTime && bookingData.toTime) {
+            document.getElementById('summaryTime').textContent = 
+                `${bookingData.fromTime.substring(0, 5)} - ${bookingData.toTime.substring(0, 5)}`;
+        }
+        
+        // Format card number input
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+            
+            // Update preview
+            const preview = formattedValue.padEnd(19, '#').replace(/(.{4})/g, '$1 ').trim();
+            document.getElementById('cardNumberPreview').textContent = preview || '#### #### #### ####';
+        });
+        
+        // Format expiry date
+        document.getElementById('expiryDate').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+            document.getElementById('cardExpiryPreview').textContent = value || 'MM/YY';
+        });
+        
+        // Update card holder preview
+        document.getElementById('cardHolderName').addEventListener('input', function(e) {
+            document.getElementById('cardHolderPreview').textContent = 
+                e.target.value.toUpperCase() || 'YOUR NAME';
+        });
+        
+        // Handle form submission
+        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const payButton = document.getElementById('payButton');
+            payButton.disabled = true;
+            payButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
+            
+            // Validate card number (simple validation)
+            const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+            if (cardNumber.length < 16) {
+                alert('Please enter a valid 16-digit card number');
+                payButton.disabled = false;
+                payButton.innerHTML = '<i class="fas fa-lock mr-2"></i>Pay Now';
+                return;
+            }
+            
+            // Validate expiry date
+            const expiryDate = document.getElementById('expiryDate').value;
+            if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
+                alert('Please enter a valid expiry date (MM/YY)');
+                payButton.disabled = false;
+                payButton.innerHTML = '<i class="fas fa-lock mr-2"></i>Pay Now';
+                return;
+            }
+            
+            // Validate CVV
+            const cvv = document.getElementById('cvv').value;
+            if (cvv.length < 3) {
+                alert('Please enter a valid CVV');
+                payButton.disabled = false;
+                payButton.innerHTML = '<i class="fas fa-lock mr-2"></i>Pay Now';
+                return;
+            }
+            
+            try {
+                const paymentData = {
+                    bookingId: document.getElementById('bookingId').value,
+                    userName: document.getElementById('userName').value,
+                    userPhone: document.getElementById('userPhone').value,
+                    turfName: document.getElementById('turfName').value,
+                    amount: parseFloat(document.getElementById('amount').value),
+                    paymentMethod: 'card',
+                    cardNumber: cardNumber,
+                    cardHolderName: document.getElementById('cardHolderName').value
+                };
+                
+                const response = await fetch('/api/payments', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(paymentData)
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Payment failed');
+                }
+                
+                const result = await response.json();
+                
+                // Show success message
+                alert(`Payment successful! Transaction ID: ${result.payment.transactionId}`);
+                
+                // Redirect to main page
+                window.location.href = '/main';
+                
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert(`Payment failed: ${error.message}`);
+                payButton.disabled = false;
+                payButton.innerHTML = '<i class="fas fa-lock mr-2"></i>Pay Now';
+            }
+        });
+        
+        // If no booking data, redirect to main
+        if (!bookingId && !bookingData.turfName) {
+            setTimeout(() => {
+                alert('No booking information found. Redirecting...');
+                window.location.href = '/main';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

@@ -3,6 +3,7 @@
     "@tailwindcss/cli": "^4.0.8",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
+    "cors": "^2.8.6",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "sequelize": "^6.37.6",
@@ -12,9 +13,9 @@
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run tailwind\"",
     "server": "node server.js",
-    "tailwind": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"  
+    "tailwind": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.2.1"
   }
 }
