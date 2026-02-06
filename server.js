@@ -12,13 +12,13 @@ const cors = require("cors");
 // 2. APP CONFIGURATION
 // ======================
 const app = express();
-const PORT = 4000;
+const PORT = 3000;
 
 // ======================
 // 3. MIDDLEWARE SETUP
 // ======================
 app.use(cors({
-  origin: 'http://localhost:4000',
+  origin: `http://localhost:${PORT}`,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
