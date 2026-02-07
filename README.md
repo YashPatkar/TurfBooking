@@ -56,15 +56,25 @@ npm run dev
 
 ```
 
-### 2. Open in Browser
+### 2. Configure Environment Variables (Optional)
 
-- Visit: http://localhost:3000
+Create a `.env` file in the root directory:
 
-### 3. Admin Panel Access
+```env
+PORT=4000
+SESSION_SECRET=supersecretkey
+CORS_ORIGIN=http://localhost:4000
+ADMIN_PASSWORD=admin123
+```
 
-- visit: http://localhost:3000/admin
+### 3. Open in Browser
 
-- Login Password: admin123
+- Visit: http://localhost:4000
+
+### 4. Admin Panel Access
+
+- Visit: http://localhost:4000/admin
+- Login Password: admin123 (configured in .env)
 
 ---
 
